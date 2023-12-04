@@ -7,3 +7,4 @@
  */
 
 rootProject.name = "swarm-playground"
+include("web")
