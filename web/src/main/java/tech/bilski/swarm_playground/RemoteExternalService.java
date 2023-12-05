@@ -26,7 +26,7 @@ public class RemoteExternalService implements ExternalService {
 
   private Mono<String> fetch(Long x) {
     return webClient.get()
-        .uri("http://localhost:7070/message")
+        .uri("http://backend:8080/message")
         .retrieve()
         .bodyToMono(String.class);
   }

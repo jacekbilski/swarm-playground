@@ -1,0 +1,9 @@
+services:
+  web:
+    image: 127.0.0.1:5000/swarm-playground-web
+    build: web
+    ports:
+      - "8080:8080"
+  backend:
+    image: 127.0.0.1:5000/swarm-playground-backend
+    build: backend
