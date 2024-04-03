@@ -10,20 +10,20 @@ import org.thymeleaf.spring6.context.webflux.ReactiveDataDriverContextVariable;
 @Controller
 public class WebController {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+  private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    private final ExternalService service;
+  private final ExternalService service;
 
-    public WebController(ExternalService service) {
-        this.service = service;
-    }
+  public WebController(ExternalService service) {
+    this.service = service;
+  }
 
-    @GetMapping("/")
-    public Rendering root() {
-      log.info("WebController.hello");
-      return Rendering
-          .view("root")
-          .modelAttribute("messages", new ReactiveDataDriverContextVariable(service.getMessages(), 1))
-          .build();
-    }
+  @GetMapping("/load-balancing")
+  public Rendering loadBalancing() {
+    log.info("WebController.loadBalancing");
+    return Rendering
+        .view("root")
+        .modelAttribute("messages", new ReactiveDataDriverContextVariable(service.getMessages(), 1))
+        .build();
+  }
 }
