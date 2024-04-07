@@ -1,6 +1,5 @@
 package tech.bilski.swarm_playground.sessions;
 
-import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -21,7 +20,7 @@ public class SessionsController {
     session.start();
     return Rendering
         .view("sessions")
-        .modelAttribute("messages", List.of("SessionId: " + session.getId()))
+        .modelAttribute("sessionId", session.getId())
         .build();
   }
 }
