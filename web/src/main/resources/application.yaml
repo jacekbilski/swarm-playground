@@ -9,3 +9,10 @@ spring:
   session:
     mongodb:
       collection-name: sessions
+management:
+  elastic:
+    metrics:
+      export:
+        enabled: true
+        step: 1m
+        index: micrometer-metrics
