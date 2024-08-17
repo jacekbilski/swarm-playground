@@ -9,6 +9,8 @@ spring:
   session:
     mongodb:
       collection-name: sessions
+#server:
+#  port: 8082
 management:
   elastic:
     metrics:
