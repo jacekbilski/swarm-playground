@@ -16,5 +16,4 @@ management:
     metrics:
       export:
         enabled: true
-        step: 1m
-        index: micrometer-metrics
+        index: metrics
