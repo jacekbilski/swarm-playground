@@ -22,11 +22,13 @@ docker run --rm -p 7070:8080 swarm-playground-backend
 docker run --rm -p 8080:8080 swarm-playground-web
 ```
 
+```shell
+docker volume create --driver local -o type=none -o o=bind -o device=/home/dino/dev/mine/swarm-playground/bindings/ca elastic_ca_binding
+```
+
 ### Docker compose
 
-Nothing more complex than `docker compose build`.
-
-Then run with `docker compose up -d`.
+Run with `docker compose up -d`.
 
 ## Swarm
 

@@ -1,0 +1,53 @@
+services:
+  web:
+#    image: 127.0.0.1:5000/swarm-playground-web   # swarm
+    image: web:0.0.1-SNAPSHOT   # plain compose
+    ports:
+      - "8080:8080"
+    environment:
+      MANAGEMENT_ELASTIC_METRICS_EXPORT_HOST: https://elasticsearch:9200
+      MANAGEMENT_ELASTIC_METRICS_EXPORT_STEP: 10s
+      MANAGEMENT_ELASTIC_METRICS_EXPORT_API_KEY_CREDENTIALS: cGJwM2c1TUJZQ0tkT01UMVFRVTE6cWgzUEl1VDdSLUNoclF6d1F4bzY0Zw==
+      SERVICE_BINDING_ROOT: /bindings
+    volumes:
+      - elastic_ca_binding:/bindings/ca
+    extra_hosts:
+      - "elasticsearch:host-gateway"
+
+  backend:
+#    image: 127.0.0.1:5000/swarm-playground-backend   # swarm
+    image: backend:0.0.1-SNAPSHOT    # plain compose
+    deploy:
+      replicas: 2
+    environment:
+      REPLICA: "{{.Task.Slot}}"
+      MANAGEMENT_ELASTIC_METRICS_EXPORT_HOST: https://elasticsearch:9200
+      MANAGEMENT_ELASTIC_METRICS_EXPORT_STEP: 10s
+      MANAGEMENT_ELASTIC_METRICS_EXPORT_API_KEY_CREDENTIALS: cGJwM2c1TUJZQ0tkT01UMVFRVTE6cWgzUEl1VDdSLUNoclF6d1F4bzY0Zw==
+      SERVICE_BINDING_ROOT: /bindings
+    volumes:
+      - elastic_ca_binding:/bindings/ca
+    extra_hosts:
+      - "elasticsearch:host-gateway"
+
+  mongo:  # for now for Spring Session
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: mongodb
+      MONGO_INITDB_DATABASE: swarm-playground
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: mongodb
+      ME_CONFIG_MONGODB_URL: mongodb://root:mongodb@mongo:27017/
+
+volumes:
+  elastic_ca_binding:
+    external: true
