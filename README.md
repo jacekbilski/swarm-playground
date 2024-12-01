@@ -11,14 +11,14 @@ Nothing fancy, just build and run.
 #### Backend
 
 ```shell
-docker build -t swarm-playground-backend backend
+./gradlew bootBuildImage
 docker run --rm -p 7070:8080 swarm-playground-backend
 ```
 
 #### Web
 
 ```shell
-docker build -t swarm-playground-web web
+./gradlew bootBuildImage
 docker run --rm -p 8080:8080 swarm-playground-web
 ```
 
